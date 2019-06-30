@@ -1,0 +1,11 @@
+nav{
+    background-color: #293462;
+    height: 50px;
+
+    grid: flex;
+    align-items: center;
+}
+
+nav a {
+    color: white;
+}
