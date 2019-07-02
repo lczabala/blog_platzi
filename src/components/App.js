@@ -1,15 +1,18 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Menu from './Menu'
-import User from './users/Users'
-
+import User from './Users'
+import Task from './Tasks'
 
 const App = () => {
 
   return (
     <BrowserRouter>
       <Menu></Menu>
-      <Route exact path='/' component={User}/>
+      <Switch>
+        <Route exact path='/' component={User} />
+        <Route exact path='/tasks' component={Task} />
+      </Switch>
     </BrowserRouter>
   )
 }
