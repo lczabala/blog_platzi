@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import * as usersActions from '../actions/usersActions'
 
 import Loader from './Loader'
+import Error from './NotFound'
 
 
 class Users extends Component {
@@ -29,18 +30,19 @@ class Users extends Component {
     ));
 
   render() {
-    console.log(this.props.error)
-    console.log(this.props)
-    if (this.props.loading === true){
+    // Se evalúa el estado del loading para que este sea mostrado o no en función a la carga de la data
+    if (this.props.loading){
       return (       
         <Loader/>        
       );
     }
 
+    console.log(this.props.error)
+    // Se evalúa si hay errores, de forma que pueda ser mostrado en pantalla. De no haber, se muestra la data a ser cargada
     if (this.props.error){
       return (       
-        <div class="alert alert-danger">
-          Error: {this.props.error}
+        <div>
+          <Error mensaje={this.props.error}/>
         </div>  
       );
     }
@@ -57,6 +59,7 @@ class Users extends Component {
                 <th scope="col">Address</th>
               </tr>
             </thead>
+            {/* Para mostrar el contenido de los datos, se hace un llamado a la función ponerFilas */}
             <tbody>{this.ponerFilas()}</tbody>
           </table>
         </div>

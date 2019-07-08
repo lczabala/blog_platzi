@@ -9,7 +9,7 @@ export const traerTodos = () => async (dispatch) => {
     })
 
     try {
-        const data = await axios.get('https://jsonplaceholder.typicode.com/users')
+        const data = await axios.get('https://jsonplaceholder.typicode.com/user')
 
         dispatch({
             // El type sera el caso a evaluar a la hora de llamar al reducer de usuarios
