@@ -7,6 +7,7 @@ import * as usersActions from '../actions/usersActions'
 
 import Loader from './Loader'
 import Error from './NotFound'
+import UserList from './UsersList'
 
 
 class Users extends Component {
@@ -16,19 +17,7 @@ class Users extends Component {
     // En el actión está el llamado al api que devuelve los datos de los usuarios
     this.props.traerTodos()
   }
-
-  ponerFilas = () =>
-    this.props.users.map(user => (
-      <tr key={user.id}>
-        <th scope="row">{user.id}</th>
-        <td>{user.name}</td>
-        <td>{user.email}</td>
-        <td>
-        {user.address.street}, {user.address.city}
-        </td>
-      </tr>
-    ));
-
+  
   render() {
     // Se evalúa el estado del loading para que este sea mostrado o no en función a la carga de la data
     if (this.props.loading){
@@ -37,7 +26,6 @@ class Users extends Component {
       );
     }
 
-    console.log(this.props.error)
     // Se evalúa si hay errores, de forma que pueda ser mostrado en pantalla. De no haber, se muestra la data a ser cargada
     if (this.props.error){
       return (       
@@ -50,19 +38,11 @@ class Users extends Component {
     return (
       <div className="container">
         <div className="row">
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Email</th>
-                <th scope="col">Address</th>
-              </tr>
-            </thead>
-            {/* Para mostrar el contenido de los datos, se hace un llamado a la función ponerFilas */}
-            <tbody>{this.ponerFilas()}</tbody>
-          </table>
+          <h1>Usuarios</h1>
+          {/* En el componente UsersList, los datos serán obtenidos por medio del reducer, por tanto, no se le envía ningun prop con estos datos */}
+          <UserList/>
         </div>
+        {/* <a href="https://wa.me/584124358375?text=Me%20gustaría%20saber%20el%20precio%20de%20la%20noche">Envíanos un mensaje de WhatsApp</a> */}
       </div>
     );
   }
@@ -70,7 +50,7 @@ class Users extends Component {
 
 // Se mapea el estado a props
 // Por default se reciben todos los reducers
-// **TRORIA** Para usar connect(), es necesario definir una función especial llamada mapStateToProps que indiqua cómo 
+// **TEORIA** Para usar connect(), es necesario definir una función especial llamada mapStateToProps que indica cómo 
 // transformar el estado actual del store Redux en los props que desea pasar a un componente de presentación
 const mapStateToProps = (reducers) =>{
   // Se selecciona el reducer ligado a los usuarios

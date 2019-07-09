@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Menu from './Menu'
 import User from './Users'
 import Task from './Tasks'
+import UserPublications from './UserPublications'
 
 const App = () => {
 
@@ -15,6 +16,7 @@ const App = () => {
         {/* Se definen las rutas que serán usadas en la palicación */}
         <Route exact path='/' component={User} />
         <Route exact path='/tasks' component={Task} />
+        <Route exact path='/publications/:user.id' component={UserPublications} />
       </Switch>
     </BrowserRouter>
   )
