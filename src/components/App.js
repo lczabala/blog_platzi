@@ -16,7 +16,7 @@ const App = () => {
         {/* Se definen las rutas que serán usadas en la palicación */}
         <Route exact path='/' component={User} />
         <Route exact path='/tasks' component={Task} />
-        <Route exact path='/publications/:user.id' component={UserPublications} />
+        <Route exact path='/publications/:key' component={UserPublications} />
       </Switch>
     </BrowserRouter>
   )

@@ -14,7 +14,11 @@ const UserList = props => {
         <td>
           {user.address.street}, {user.address.city}
         </td>
-        <td><Link to = {`/publications/${user.id}`}><i className="far fa-eye"></i></Link></td>
+        <td>
+          <Link to = {`/publications/${user.id}`}>
+            <i className="far fa-eye"></i>
+          </Link>
+        </td>
       </tr>
     ));
 

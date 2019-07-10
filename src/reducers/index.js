@@ -3,9 +3,11 @@
 import {combineReducers} from 'redux'
 // Se importa el reducer relacionado a los usuarios
 import usersReducer from './users'
+import userPublicationsReducer from './userpublication'
 
 // Se exportan todos los reducers necesarios
 export default combineReducers({
     // Toda la aplicación tendría acceso a usuarios
-    usersReducer
+    usersReducer,
+    userPublicationsReducer
 })
