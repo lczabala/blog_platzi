@@ -7,20 +7,21 @@ import Loader from "./Loader";
 import Error from "./NotFound";
 
 class UserPublications extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     //Para el caso en que no se tenga los datos del estado, se evalua si éstos estan, de ser así, se hace la consulta por medio action
     if (!this.props.usersReducer.users.length) {
-      this.props.traerTodos();
+      await this.props.traerTodos();
     }
 
+    // Se manda a llamar las publicaciones para un usuario en especifico
     if (!this.props.userPublicationsReducer.publications.length) {
-      this.props.allPublications();
+      this.props.userPublications(this.props.match.params.key)
     }
   }
 
   render() {
-      console.log(this.props.userPublicationsReducer)
-    if (this.props.loading) {
+    console.log(this.props)
+    if (this.props.userPublicationsReducer.loading) {
       return <Loader />;
     }
 
@@ -49,6 +50,7 @@ const mapToStateToPros = ({ usersReducer, userPublicationsReducer }) => {
   };
 };
 
+// Se crea un objeto con los actions que serán usados en el componente
 const mapToDispatchToPros = {
   ...usersActions,
   ...userPublicationsActions

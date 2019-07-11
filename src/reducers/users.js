@@ -21,7 +21,8 @@ export default (state = INITIAL_STATE, action) => {
             // Se destructura el estado para actualizar el valor de users y se retorna todo el estado
             return { ...state, 
                 users: action.payload,
-                loading: false
+                loading: false,
+                error: ''
             }        
         case LOADING:
             return {...state, 
