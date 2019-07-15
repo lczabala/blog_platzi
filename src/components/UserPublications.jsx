@@ -8,36 +8,58 @@ import Error from "./NotFound";
 
 class UserPublications extends Component {
   async componentDidMount() {
+    // Se realiza una destructuración de this.props para que sea mas corto el uso de las variables
+    const {
+      traerTodos,
+      userPublications,
+      match: {
+        params: { key }
+      }
+    } = this.props;
+
     //Para el caso en que no se tenga los datos del estado, se evalua si éstos estan, de ser así, se hace la consulta por medio action
     if (!this.props.usersReducer.users.length) {
-      await this.props.traerTodos();
+      await traerTodos();
     }
-
     // Se manda a llamar las publicaciones para un usuario en especifico
-    if (!this.props.userPublicationsReducer.publications.length) {
-      this.props.userPublications(this.props.match.params.key)
+    // if (!this.props.userPublicationsReducer.publications.length) {
+    //   this.props.userPublications(this.props.match.params.key)
+    // }
+
+    // Evalua si publications_key está en this.props.usersReducer.users[this.props.match.params.key])
+    if (!('publications_key'.indexOf(this.props.usersReducer.users[key]))) {
+      console.log("entra", key, this.props.usersReducer);
+      await userPublications(key);
     }
   }
 
-  render() {
-    console.log(this.props)
-    if (this.props.userPublicationsReducer.loading) {
+  renderUsers = () => {
+    const {
+      usersReducer,
+      match: {
+        params: { key }
+      }
+    } = this.props;
+    if (!this.props.usersReducer.users.length || usersReducer.loading) {
       return <Loader />;
     }
-
     // Se evalúa si hay errores, de forma que pueda ser mostrado en pantalla. De no haber, se muestra la data a ser cargada
-    if (this.props.userPublicationsReducer.error) {
+    if (usersReducer.error) {
       return (
         <div>
-          <Error mensaje={this.props.error} />
+          <Error mensaje={usersReducer.error} />
         </div>
       );
     }
+    const nombre = usersReducer.users[key].name;
+    return <h1>Usuario {nombre}</h1>;
+  };
 
+  render() {
+    console.log(this.props);
     return (
       <div>
-        {/* <h1>Publicaiones de {this.props.users[this.props.match.params.key].name} </h1> */}
-        {this.props.match.params.key}
+        {this.renderUsers()}
       </div>
     );
   }

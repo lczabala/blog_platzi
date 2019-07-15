@@ -15,7 +15,9 @@ class Users extends Component {
   componentDidMount(){  
     // Se hace el llamado a los datos que se mostrarán, los cuales están en el action
     // En el actión está el llamado al api que devuelve los datos de los usuarios
-    this.props.traerTodos()
+    if (!this.props.users.length) {
+			this.props.traerTodos();
+		}    
   }
   
   render() {

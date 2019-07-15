@@ -6,19 +6,24 @@ import '@fortawesome/fontawesome-free/css/all.css';
 
 const UserList = props => {
   const ponerFilas = () =>
-    props.users.map(user => (
+    props.users.map((user,key) => (
+      // Se recibe por parámetro los usuarios del arreglo y la llave del arreglo (la posición que ocupa cada usuario en el arreglo)
+      // El key del tr estará representado por el id del suario (id que trae desde el api usado)
       <tr key={user.id}>
-        <th scope="row">{user.id}</th>
+        {/* Se imprime el valor de key, haciendo referencia a la posición de cada usuario en el arreglo, no está relacionado al id de éste */}
+        <th scope="row">{key}</th>
         <td>{user.name}</td>
         <td>{user.email}</td>
         <td>
           {user.address.street}, {user.address.city}
         </td>
         <td>
-          <Link to = {`/publications/${user.id}`}>
+          {/* La ruta a ser usada será publications + el id del usuario */}
+          <Link to = {`/publications/${key}`}>
             <i className="far fa-eye"></i>
           </Link>
         </td>
+        
       </tr>
     ));
 
@@ -27,7 +32,7 @@ const UserList = props => {
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">First</th>
+          <th scope="col">Name</th>
           <th scope="col">Email</th>
           <th scope="col">Address</th>
           <th scope="col">Options</th>
