@@ -43,17 +43,17 @@ class UserPublications extends Component {
       }
     } = this.props;
     // Para hacer el llamado del Loader, se evalúa si en el reducer hay usuarios o si el loadgin esta en true
-    if (!this.props.usersReducer.users.length || usersReducer.loading) {
-      return <Loader />;
-    }
+    // if (!this.props.usersReducer.users.length || usersReducer.loading) {
+    //   return <Loader />;
+    // }
     // Se evalúa si hay errores, de forma que pueda ser mostrado en pantalla. De no haber, se muestra la data a ser cargada
-    if (usersReducer.error) {
-      return (
-        <div>
-          <Error mensaje={usersReducer.error} />
-        </div>
-      );
-    }
+    // if (usersReducer.error) {
+    //   return (
+    //     <div>
+    //       <Error mensaje={usersReducer.error} />
+    //     </div>
+    //   );
+    // }
 
     // Se pinta el nombre del usuario
     const nombre = usersReducer.users[key].name;
@@ -80,16 +80,16 @@ class UserPublications extends Component {
     if (usersReducer.error) {
       return 
     }
-    if (userPublicationsReducer.loading){
-      return <Loader/>
-    }
-    if (userPublicationsReducer.error){
-      return (
-        <div>
-          <Error mensaje={userPublicationsReducer.error} />
-        </div>
-      );
-    }
+    // if (userPublicationsReducer.loading){
+    //   return <Loader/>
+    // }
+    // if (userPublicationsReducer.error){
+    //   return (
+    //     <div>
+    //       <Error mensaje={userPublicationsReducer.error} />
+    //     </div>
+    //   );
+    // }
     if (!publications.length) {
       return
     }
@@ -114,6 +114,28 @@ class UserPublications extends Component {
 
   render() {
     console.log(this.props);
+
+    
+    if (this.props.userPublicationsReducer.loading || !this.props.usersReducer.users.length || this.props.usersReducer.loading){
+      return <Loader/>
+    }
+
+    if (this.props.usersReducer.error) {
+      return (
+        <div>
+          <Error mensaje={this.props.usersReducer.error} />
+        </div>
+      );
+    }
+
+    if (this.props.userPublicationsReducer.error){
+      return (
+        <div>
+          <Error mensaje={this.props.userPublicationsReducer.error} />
+        </div>
+      );
+    }
+
     return (
       <div className="container">   
         <div className="row">

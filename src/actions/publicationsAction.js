@@ -34,6 +34,11 @@ export const userPublications = (key) => async(dispatch, getState) =>{
     const { publications } = getState().userPublicationsReducer  
     // Se toma el id del usuario en función al key que se recibe. Destacar que este Key es el indice del arreglo 
     const user_id = users[key].id
+
+    dispatch({
+        type: LOADING_PUBLICATIONS      
+    })
+
     try {
         const data = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${user_id}`)
 
