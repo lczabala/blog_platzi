@@ -5,6 +5,7 @@ import * as userPublicationsActions from "../actions/publicationsAction";
 
 import Loader from "./Loader";
 import Error from "./NotFound";
+import "./styles/UserPublications.css"
 
 class UserPublications extends Component {
   async componentDidMount() {
@@ -56,7 +57,7 @@ class UserPublications extends Component {
 
     // Se pinta el nombre del usuario
     const nombre = usersReducer.users[key].name;
-    return <h1>Usuario {nombre}</h1>;
+    return <h1 className="userName">Usuario {nombre}</h1>;
   };
 
   renderPublications = () =>{
@@ -100,10 +101,11 @@ class UserPublications extends Component {
     console.log(publications_key)
     return publications[publications_key].map(
       publication => (
-        <div key={publication.id}>
-          <h2>{publication.title}</h2>
-          <div>
-            <p>{publication.body}</p>
+        <div className="card cardPublication" key={publication.id}>
+          <div class="card-body">
+            <h5 class="card-title">{publication.title}</h5>
+            <p class="card-text">{publication.body}</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
       )
@@ -113,9 +115,11 @@ class UserPublications extends Component {
   render() {
     console.log(this.props);
     return (
-      <div>
-        {this.renderUsers()}
-        {this.renderPublications()}
+      <div className="container">   
+        <div className="row">
+          {this.renderUsers()}
+          {this.renderPublications()}
+        </div>       
       </div>
     );
   }
