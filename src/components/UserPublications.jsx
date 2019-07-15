@@ -27,19 +27,21 @@ class UserPublications extends Component {
     // }
 
     // Evalua si publications_key está en this.props.usersReducer.users[this.props.match.params.key])
-    if (!('publications_key'.indexOf(this.props.usersReducer.users[key]))) {
-      console.log("entra", key, this.props.usersReducer);
+    if (!('publications_key' in this.props.usersReducer.users[key])) {      
+      console.log("Buscar publicaciones")
       await userPublications(key);
     }
   }
 
   renderUsers = () => {
+    // Destructuramos this.props para trabajar directamente con el reducer de usuarios y con el Key
     const {
       usersReducer,
       match: {
         params: { key }
       }
     } = this.props;
+    // Para hacer el llamado del Loader, se evalúa si en el reducer hay usuarios o si el loadgin esta en true
     if (!this.props.usersReducer.users.length || usersReducer.loading) {
       return <Loader />;
     }
@@ -51,15 +53,69 @@ class UserPublications extends Component {
         </div>
       );
     }
+
+    // Se pinta el nombre del usuario
     const nombre = usersReducer.users[key].name;
     return <h1>Usuario {nombre}</h1>;
   };
+
+  renderPublications = () =>{
+    console.log("entre en renderPublications")
+    const {
+      usersReducer,
+      usersReducer: {users},
+
+      userPublicationsReducer,
+      userPublicationsReducer: {publications},
+
+      match: {
+        params: { key }
+      }
+    } = this.props;
+
+    if (!users.length) {
+      return
+    }
+    if (usersReducer.error) {
+      return 
+    }
+    if (userPublicationsReducer.loading){
+      return <Loader/>
+    }
+    if (userPublicationsReducer.error){
+      return (
+        <div>
+          <Error mensaje={userPublicationsReducer.error} />
+        </div>
+      );
+    }
+    if (!publications.length) {
+      return
+    }
+    if (!('publications_key' in users[key])){
+      return
+    }
+
+    const { publications_key } = users[key];
+    console.log(publications_key)
+    return publications[publications_key].map(
+      publication => (
+        <div key={publication.id}>
+          <h2>{publication.title}</h2>
+          <div>
+            <p>{publication.body}</p>
+          </div>
+        </div>
+      )
+    );
+  }
 
   render() {
     console.log(this.props);
     return (
       <div>
         {this.renderUsers()}
+        {this.renderPublications()}
       </div>
     );
   }
