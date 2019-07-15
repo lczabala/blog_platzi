@@ -28,8 +28,7 @@ class UserPublications extends Component {
     // }
 
     // Evalua si publications_key está en this.props.usersReducer.users[this.props.match.params.key])
-    if (!('publications_key' in this.props.usersReducer.users[key])) {      
-      console.log("Buscar publicaciones")
+    if (!('publications_key' in this.props.usersReducer.users[key])) {    
       await userPublications(key);
     }
   }
@@ -60,13 +59,12 @@ class UserPublications extends Component {
     return <h1 className="userName">Usuario {nombre}</h1>;
   };
 
-  renderPublications = () =>{
-    console.log("entre en renderPublications")
+  renderPublications = () =>{    
     const {
       usersReducer,
       usersReducer: {users},
 
-      userPublicationsReducer,
+      // userPublicationsReducer,
       userPublicationsReducer: {publications},
 
       match: {
@@ -97,17 +95,26 @@ class UserPublications extends Component {
       return
     }
 
-    const { publications_key } = users[key];
-    console.log(publications_key)
-    return publications[publications_key].map(
-      publication => (
-        <div className="card cardPublication" key={publication.id}>
-          <div class="card-body">
-            <h5 class="card-title">{publication.title}</h5>
-            <p class="card-text">{publication.body}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+    const { publications_key } = users[key];    
+    return (this.renderInfoPublications(publications[publications_key], publications_key));
+  }
+
+  renderInfoPublications = (publications, publications_key) =>{
+    return(      
+      publications.map(
+        (publication, com_key) => (
+          <div 
+            className="card cardPublication" 
+            key={publication.id}          
+          >
+            <div className="card-body">
+              <h5 className="card-title">{publication.title}</h5>
+              <p className="card-text">{publication.body}</p>
+              <a href="" className="btn btn-primary" onClick={()=>this.props.openClosePublications(publications_key, com_key)}>Ver Detalle</a>
+            </div>
+            {publication.open ? "abierto" : "cerrado"}
           </div>
-        </div>
+        )
       )
     );
   }
@@ -157,7 +164,7 @@ const mapToStateToPros = ({ usersReducer, userPublicationsReducer }) => {
 // Se crea un objeto con los actions que serán usados en el componente
 const mapToDispatchToPros = {
   ...usersActions,
-  ...userPublicationsActions
+  ...userPublicationsActions,  
 };
 
 export default connect(

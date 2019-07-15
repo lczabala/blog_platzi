@@ -42,11 +42,18 @@ export const userPublications = (key) => async(dispatch, getState) =>{
     try {
         const data = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${user_id}`)
 
+        // A las publicaciones que son traidas, se le asigna un arreglo vacío para lo comentarios y una variable booleana para indicar si la publicación está o no abierta
+        const new_publications = data.data.map(publications => ({
+            ...publications,
+            comments: [],
+            open: false
+        }))
+
         // Es necesario mantener las publicaciones actualizadas a medida que se vayan obteniendo las publicaciones de nuevo usuarios
         // La forma de actualizarlos es directamente sobre publicacions, la cual tiene las publicaciones actuales, con data.data se anexa las nueva publicaciones
         const updated_publications =[
             ...publications,
-            data.data
+            new_publications
         ]
         dispatch({
             // El type sera el caso a evaluar a la hora de llamar al reducer de usuarios
@@ -75,4 +82,8 @@ export const userPublications = (key) => async(dispatch, getState) =>{
             payload: e.message
         })
     }
+}
+
+export const openClosePublications = (publications_key, com_key) => (dispatch) => {
+    console.log(publications_key, com_key)
 }
