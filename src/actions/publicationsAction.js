@@ -84,6 +84,27 @@ export const userPublications = (key) => async(dispatch, getState) =>{
     }
 }
 
-export const openClosePublications = (publications_key, com_key) => (dispatch) => {
-    console.log(publications_key, com_key)
+export const openClosePublications = (key, comment_key) => (dispatch, getState) => {
+    const {publications} = getState().userPublicationsReducer
+    // Se identifica qué publicación fue la seleccionada
+    const publicacionsUpdated = [...publications]
+    const publicacionSelected = publications[key][comment_key]
+    console.log(publicacionSelected)
+    const openPublicacionUptadeted = {
+        ...publicacionSelected,
+        open: !publicacionSelected.open
+    }
+    console.log(openPublicacionUptadeted) 
+    
+    console.log(publicacionsUpdated)
+    publicacionsUpdated[key] = [
+        ...publications[key]
+    ]
+    console.log(publicacionsUpdated[key])
+    publicacionsUpdated[key][comment_key] = openClosePublications
+    
+    dispatch({        
+        type: BRING_PUBLICATIONS,
+        payload: publicacionsUpdated
+    })
 }

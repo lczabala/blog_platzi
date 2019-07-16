@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as usersActions from "../actions/usersActions";
 import * as userPublicationsActions from "../actions/publicationsAction";
+import {Link} from "react-router-dom"
 
 import Loader from "./Loader";
 import Error from "./NotFound";
@@ -110,7 +111,7 @@ class UserPublications extends Component {
             <div className="card-body">
               <h5 className="card-title">{publication.title}</h5>
               <p className="card-text">{publication.body}</p>
-              <a href="" className="btn btn-primary" onClick={()=>this.props.openClosePublications(publications_key, com_key)}>Ver Detalle</a>
+              <Link to="#" className="btn btn-primary" onClick={()=>this.props.openClosePublications(publications_key, com_key)}>Ver Detalle</Link>
             </div>
             {publication.open ? "abierto" : "cerrado"}
           </div>
@@ -120,7 +121,7 @@ class UserPublications extends Component {
   }
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
 
     
     if (this.props.userPublicationsReducer.loading || !this.props.usersReducer.users.length || this.props.usersReducer.loading){
