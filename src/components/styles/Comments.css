@@ -1,0 +1,22 @@
+.commentContainer{
+    margin-bottom: 5px;
+    background-color: beige;
+    padding: 5px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+li{
+    list-style: none;
+}
+
+.commentContainer p{
+    margin: 0;
+    width: 100%;
+}
+
+.emailComment{
+    font-style: italic;
+    justify-content: right;
+}

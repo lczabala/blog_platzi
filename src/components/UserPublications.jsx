@@ -6,6 +6,9 @@ import {Link} from "react-router-dom"
 
 import Loader from "./Loader";
 import Error from "./NotFound";
+import Comments from "./Comments"
+
+import "bootstrap/dist/css/bootstrap.css"
 import "./styles/UserPublications.css"
 
 class UserPublications extends Component {
@@ -106,24 +109,28 @@ class UserPublications extends Component {
         (publication, com_key) => (
           <div 
             className="card cardPublication" 
-            key={publication.id}          
+            key={publication.id}                    
           >
             <div className="card-body">
               <h5 className="card-title">{publication.title}</h5>
               <p className="card-text">{publication.body}</p>
-              <Link to="#" className="btn btn-primary" onClick={()=>this.props.openClosePublications(publications_key, com_key)}>Ver Detalle</Link>
+              <Link to="#" className="btn btn-primary" onClick = {() => this.renderComments(publications_key, com_key, publication.comments)}>Ver Detalle</Link>
             </div>
-            {publication.open ? "abierto" : "cerrado"}
+            {publication.open ? <Comments comments={publication.comments}/> : ""}
           </div>
         )
       )
     );
   }
 
-  render() {
-    // console.log(this.props);
+  renderComments = (publications_key, com_key, comments) => {
+    this.props.openClosePublications(publications_key, com_key)
+    if (!comments.length){
+      this.props.bringComments(publications_key, com_key)
+    }
+  }
 
-    
+  render() {
     if (this.props.userPublicationsReducer.loading || !this.props.usersReducer.users.length || this.props.usersReducer.loading){
       return <Loader/>
     }

@@ -1,8 +1,10 @@
 .cardPublication{
     margin-top: 10px;
     margin-bottom: 15px;
-    background-color: #fff1c1;
+    background-color: #cad2f7;
+    /* background-color: #eaeaea; */
     width: 100%;
+    border: none;
 }
 
 .userName{
