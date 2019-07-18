@@ -1,12 +1,14 @@
 // Reducer del Usuario
 
-import { BRING_PUBLICATIONS, LOADING_PUBLICATIONS, ERROR_PUBLICATIONS } from '../types/publicationsTypes'
+import { BRING_PUBLICATIONS, LOADING_PUBLICATIONS, ERROR_PUBLICATIONS, LOADING_COMMENTS, ERROR_COMMENTS } from '../types/publicationsTypes'
 
 // Estado inicial
 const INITIAL_STATE={
     publications: [],
     loading: false,
-    error: null
+    error: null,
+    comments_loading: false,
+    comments_error: null
 }
 
 // Casos
@@ -21,6 +23,7 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, 
                 publications: action.payload,
                 loading: false,
+                comments_loading: false,
                 error: ''
             }        
         case LOADING_PUBLICATIONS:
@@ -28,10 +31,22 @@ export default (state = INITIAL_STATE, action) => {
                 loading: true
             }
         case ERROR_PUBLICATIONS:
-            return {...state, 
+            return {
+                ...state,
                 error: action.payload,
                 loading: false
-            }       
+            }
+        case LOADING_COMMENTS:
+            return {
+                ...state,
+                comments_loading: true
+            }
+        case ERROR_COMMENTS:
+            return {
+                ...state,
+                comments_error: action.payload,
+                comments_loading: false
+            }
         default: return state
     }
 }

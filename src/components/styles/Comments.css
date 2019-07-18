@@ -1,14 +1,19 @@
 .commentContainer{
     margin-bottom: 5px;
-    background-color: beige;
+    background-color: #89a3b2;
     padding: 5px;
-
+    border-radius: 7px;
     display: flex;
     flex-direction: column;
+    margin-bottom: 10px;
+}
+
+ul{
+    padding: 7px;    
 }
 
 li{
-    list-style: none;
+    list-style: none;    
 }
 
 .commentContainer p{
@@ -18,5 +23,6 @@ li{
 
 .emailComment{
     font-style: italic;
-    justify-content: right;
+    justify-content: flex-start;
+    
 }

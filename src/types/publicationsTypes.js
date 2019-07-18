@@ -1,3 +1,5 @@
 export const BRING_PUBLICATIONS = 'bring_publications'
 export const LOADING_PUBLICATIONS = 'loading_publications'
 export const ERROR_PUBLICATIONS = 'error_publications'
+export const LOADING_COMMENTS = 'loading_comments'
+export const ERROR_COMMENTS = 'error_comments'

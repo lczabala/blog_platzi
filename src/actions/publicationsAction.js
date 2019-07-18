@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { BRING_PUBLICATIONS, LOADING_PUBLICATIONS, ERROR_PUBLICATIONS } from '../types/publicationsTypes'
+import { BRING_PUBLICATIONS, LOADING_PUBLICATIONS, ERROR_PUBLICATIONS, LOADING_COMMENTS, ERROR_COMMENTS } from '../types/publicationsTypes'
 import {BRING_USERS} from '../types/usuariosTypes'
 import { async } from 'q';
 
@@ -109,12 +109,14 @@ export const openClosePublications = (key, comment_key) => (dispatch, getState) 
 }
 
 export const bringComments = (key, comment_key) => async(dispatch, getState) =>{
-    
+    dispatch({
+        type: LOADING_COMMENTS      
+    })
     try{
         const {publications} = getState().userPublicationsReducer
         // Se identifica qué publicación fue la seleccionada
         const publicationSelected = publications[key][comment_key]
-        const data = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${publicationSelected.id}`)
+        const data = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${publicationSelected.id}****`)
 
         const openPublicationUptadeted = {
             ...publicationSelected,
@@ -134,7 +136,7 @@ export const bringComments = (key, comment_key) => async(dispatch, getState) =>{
     }catch (e) {        
         dispatch({
             // El type sera el caso a evaluar a la hora de llamar al reducer de usuarios
-            type: ERROR_PUBLICATIONS,
+            type: ERROR_COMMENTS,
             payload: e.message
         })
     }
