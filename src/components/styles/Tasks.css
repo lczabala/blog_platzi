@@ -1,0 +1,18 @@
+.taskNotCompleted{
+    color: red;
+    font-weight: 700;
+}
+
+.taskCompleted{
+    color: green;
+    font-weight: 700;
+}
+
+.taskContainer{
+    padding: 5px;
+    margin-top: 3px;
+}
+
+.task p{
+    margin: 0;
+}
