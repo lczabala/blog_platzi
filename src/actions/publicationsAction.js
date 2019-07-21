@@ -116,7 +116,7 @@ export const bringComments = (key, comment_key) => async(dispatch, getState) =>{
         const {publications} = getState().userPublicationsReducer
         // Se identifica qué publicación fue la seleccionada
         const publicationSelected = publications[key][comment_key]
-        const data = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${publicationSelected.id}****`)
+        const data = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${publicationSelected.id}`)
 
         const openPublicationUptadeted = {
             ...publicationSelected,
@@ -133,7 +133,8 @@ export const bringComments = (key, comment_key) => async(dispatch, getState) =>{
             payload: publicationsUpdated
         })
         console.log(publicationsUpdated)
-    }catch (e) {        
+    }catch (e) {   
+        console.log("disparo error", e)     
         dispatch({
             // El type sera el caso a evaluar a la hora de llamar al reducer de usuarios
             type: ERROR_COMMENTS,

@@ -4,25 +4,24 @@ import "./styles/Comments.css"
 import Loader from "./Loader"
 
 const Comments = props => {
-  if (props.comments_loading) {
-    return <Loader />
-  }
 
-  const commentsError = () =>{
-    console.log(props.comments_error)
-    if (props.comments_error) {
-      return(
-        <div className="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong>!Ha ocurrido un error! </strong>
-          {props.comments_error}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      )      
+  const commentsLoader = () =>{
+    if (props.comments_loading && !props.comments.length) {
+      return <Loader />
     }
   }
   
+
+  const commentsError = () =>{
+    if (props.comments_error) {
+      return(
+        <div className="alert alert-danger" role="alert">
+          <strong>!Ha ocurrido un error! </strong>
+          {props.comments_error}         
+        </div>
+      )      
+    }
+  }  
 
   const listComments = () => {
     return props.comments.map(comment => (
@@ -41,6 +40,7 @@ const Comments = props => {
   return (
     <ul>
       {commentsError()}
+      {commentsLoader()}
       {listComments()}
     </ul>
   );
