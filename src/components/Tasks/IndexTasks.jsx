@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import * as tasksActios from '../../actions/tasksActions'
+import * as tasksActions from '../../actions/tasksActions'
 
 import Loader from '../Loader'
 import Error from '../NotFound'
@@ -53,7 +53,7 @@ class IndexTasks extends React.Component{
         return(
             <div className="container"> 
                 <Link to="/tasks/newtask">
-                    <button type="button" class="btn btn-primary">
+                    <button type="button" className="btn btn-primary">
                         Add Task
                     </button>  
                 </Link>         
@@ -65,4 +65,4 @@ class IndexTasks extends React.Component{
 
 const mapToStateToProps = ({tasksReducer}) => tasksReducer
 
-export default connect(mapToStateToProps, tasksActios)(IndexTasks)
+export default connect(mapToStateToProps, tasksActions)(IndexTasks)

@@ -35,3 +35,38 @@ export const allTasks = () => async (dispatch) => {
         })
     }
 }
+
+export const changeUserID_Task = (userId) => (dispatch)=>{
+    dispatch({
+        type:'changeUserID_Task',
+        payload: userId
+    })
+}
+
+export const changeTitle_Task = (titleTask) => (dispatch)=>{
+    dispatch({
+        type:'changeTitle_Task',
+        payload: titleTask
+    })
+}
+
+export const saveNewTask = (newTask) => async (dispatch)=>{
+    dispatch({
+        type:LOADING_TASKS
+    })
+
+    try{
+        const data = await axios.post('https://jsonplaceholder.typicode.com/todos', newTask)
+        
+        dispatch({
+            type:'newTask'
+        })
+        
+    }catch(e){
+        dispatch({
+            // El type sera el caso a evaluar a la hora de llamar al reducer de usuarios
+            type: ERROR_TASKS,
+            payload: e.message
+        })
+    }
+}

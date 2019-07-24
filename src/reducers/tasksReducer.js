@@ -1,12 +1,14 @@
 // Reducer de las tareas
 
-import {BRING_TASKS, LOADING_TASKS, ERROR_TASKS} from '../types/tasksTypes'
+import {BRING_TASKS, LOADING_TASKS, ERROR_TASKS, CHANGEUSERID_TASK, CHANGETITLE_TASK} from '../types/tasksTypes'
 
 // Estado inicial
 const INITIAL_STATE={
     tasks: {},
     loading_tasks: false,
-    error_tasks: null
+    error_tasks: null,
+    userId: '',
+    title: ''
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -26,6 +28,23 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, 
                 error_tasks: action.payload,
                 loading_tasks: false
+            }
+        case CHANGEUSERID_TASK:
+            return {
+                ...state,
+                userId: action.payload
+            }
+        case CHANGETITLE_TASK:
+            return {
+                ...state,
+                title: action.payload
+            }
+        case 'newTask':
+            return {
+                ...state,
+                tasks:{},
+                loading_tasks: false,
+                error_tasks: ''
             }
         default: return state
     }

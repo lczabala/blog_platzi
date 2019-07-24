@@ -1,7 +1,42 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import * as tasksActions from '../../actions/tasksActions'
+
+import Loader from '../Loader'
+import Error from '../NotFound'
 
 class NewTask extends React.Component{
+
+    changeUserID_Task= (event) =>{
+        console.log(event.target.value)
+        this.props.changeUserID_Task(event.target.value)
+    }
+
+    changeTitle_Task = (event) =>{
+        console.log(event.target.value)
+        this.props.changeTitle_Task(event.target.value)
+    }
+
+    saveNewTask = () =>{
+        const {userId, title, saveNewTask} = this.props
+        const NewTask = {
+            userId: userId, 
+            title: title,
+            completed: false
+        }
+        saveNewTask(NewTask)
+    }
     render(){
+        const { loading_tasks, error_tasks } = this.props;
+ 
+        if (loading_tasks) {
+          return <Loader />;
+        }
+ 
+        if (error_tasks) {
+          return <Error mensaje={error_tasks} />;
+        }    
+
         return(
             <div className="container">
                 <div className="row">
@@ -11,16 +46,36 @@ class NewTask extends React.Component{
                 </div>
                 <div className="row">
                     <form action="">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Usuario ID</label>
-                            <input type="number" class="form-control" id="userid" aria-describedby="userid" placeholder="Enter User ID"/>
-                            <small id="userid" class="form-text text-muted">Asegurese de ingresar el ID correcto</small>
+                        <div className="form-group">
+                            <label>Usuario ID</label>
+                            <input 
+                                type="number" 
+                                className="form-control" 
+                                id="userid" 
+                                aria-describedby="userid" 
+                                placeholder="Enter User ID"
+                                defaultValue={this.props.userID}
+                                onChange={this.changeUserID_Task}
+                            />
+                            <small id="userid" className="form-text text-muted">Asegurese de ingresar el ID correcto</small>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Task Title</label>
-                            <input type="text" class="form-control" id="tasktitle" aria-describedby="tasktitle" placeholder="Enter Task Title"/>                            
+                        <div className="form-group">
+                            <label>Task Title</label>
+                            <input 
+                                type="text" 
+                                className="form-control" 
+                                id="tasktitle" 
+                                aria-describedby="tasktitle" 
+                                placeholder="Enter Task Title"
+                                defaultValue={this.props.taskTitle}
+                                onChange={this.changeTitle_Task}
+                            />                            
                         </div>
-                        <button type="button" class="btn btn-success">
+                        <button 
+                            type="button" 
+                            className="btn btn-success"
+                            onClick={this.saveNewTask}
+                        >
                            Save Task
                         </button>
                     </form>
@@ -30,4 +85,6 @@ class NewTask extends React.Component{
     }
 }
 
-export default NewTask
+const mapStateToProps = ({tasksReducer}) => tasksReducer
+
+export default connect(mapStateToProps, tasksActions)(NewTask)
