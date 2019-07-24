@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import * as tasksActios from '../../actions/tasksActions'
 
 import Loader from '../Loader'
@@ -46,14 +47,16 @@ class IndexTasks extends React.Component{
                 </div>
             ))
         )
-    }
+    }   
 
-    
-
-    render(){
-        console.log(this.props)
+    render(){        
         return(
-            <div>                
+            <div className="container"> 
+                <Link to="/tasks/newtask">
+                    <button type="button" class="btn btn-primary">
+                        Add Task
+                    </button>  
+                </Link>         
                 {this.renderTasks()}
             </div>
         )
