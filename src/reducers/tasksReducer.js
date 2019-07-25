@@ -8,7 +8,8 @@ const INITIAL_STATE={
     loading_tasks: false,
     error_tasks: null,
     userId: '',
-    title: ''
+    title: '',
+    return: false
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -18,7 +19,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, 
                 tasks: action.payload,
                 loading_tasks: false,
-                error_tasks: ''
+                error_tasks: '',
+                return: false
             }        
         case LOADING_TASKS:
             return {...state, 
@@ -44,7 +46,10 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 tasks:{},
                 loading_tasks: false,
-                error_tasks: ''
+                error_tasks: '',
+                return: true,
+                userId: '',
+                title: ''
             }
         default: return state
     }

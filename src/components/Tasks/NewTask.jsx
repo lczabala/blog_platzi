@@ -4,6 +4,7 @@ import * as tasksActions from '../../actions/tasksActions'
 
 import Loader from '../Loader'
 import Error from '../NotFound'
+import {Redirect} from 'react-router-dom'
 
 class NewTask extends React.Component{
 
@@ -26,19 +27,30 @@ class NewTask extends React.Component{
         }
         saveNewTask(NewTask)
     }
+    enabled = () =>{
+        const {userId, title, loading_tasks} = this.props        
+        if (loading_tasks){
+            return true
+        }
+        if (!userId || !title){
+            return true
+        }
+        return false
+    }
     render(){
         const { loading_tasks, error_tasks } = this.props;
  
         if (loading_tasks) {
           return <Loader />;
-        }
- 
+        } 
         if (error_tasks) {
           return <Error mensaje={error_tasks} />;
-        }    
-
-        return(
+        }
+        return(            
             <div className="container">
+                {
+                    (this.props.return) ? <Redirect to="/tasks"/> : ""
+                }
                 <div className="row">
                     <h1>
                         New Task
@@ -75,6 +87,7 @@ class NewTask extends React.Component{
                             type="button" 
                             className="btn btn-success"
                             onClick={this.saveNewTask}
+                            disabled={this.enabled()}
                         >
                            Save Task
                         </button>

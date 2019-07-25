@@ -10,7 +10,9 @@ import '../styles/Tasks.css'
 class IndexTasks extends React.Component{
 
     componentDidMount(){
-        this.props.allTasks()
+        if (!Object.keys(this.props.tasks).length){
+            this.props.allTasks()
+        }        
     }
 
     renderTasks = () =>{
