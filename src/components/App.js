@@ -18,6 +18,7 @@ const App = () => {
         <Route exact path='/' component={User} />
         <Route exact path='/tasks' component={Task} />
         <Route exact path='/tasks/newtask' component={NewTask} />
+        <Route exact path='/tasks/newtask/:userId/:taskId' component={NewTask} />
         <Route exact path='/publications/:key' component={UserPublications} />
       </Switch>
     </BrowserRouter>

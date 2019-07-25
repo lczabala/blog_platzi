@@ -44,7 +44,16 @@ class IndexTasks extends React.Component{
             Object.keys(userTask).map((task)=>(
                 <div key={userTask[task].id} className="taskContainer col-12">
                     <div className="task">
-                        <p>{userTask[task].id} - {userTask[task].title} - <span className={userTask[task].completed ? "taskCompleted" : "taskNotCompleted"}>{userTask[task].completed ? "Completed" : "Not Completed"}</span></p>
+                        <p>
+                            {userTask[task].id} - {userTask[task].title} - 
+                            <span className={userTask[task].completed ? "taskCompleted" : "taskNotCompleted"}>{userTask[task].completed ? "Completed" : "Not Completed"}</span> 
+                            <Link to={`/tasks/newtask/${userId}/${userTask[task].id}`}>
+                                <button type="button" className="btn btn-info btn-sm">Edit</button>
+                            </Link>
+                            <Link to={`/tasks/newtask/${userId}/${userTask[task].id}`}>
+                                <button type="button" className="btn btn-danger btn-sm">Delete</button>
+                            </Link>
+                        </p>
                     </div>                    
                 </div>
             ))

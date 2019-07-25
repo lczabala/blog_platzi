@@ -8,24 +8,53 @@ import {Redirect} from 'react-router-dom'
 
 class NewTask extends React.Component{
 
+    componentDidMount(){
+        const{
+            match: {params: {userId, taskId} },
+            tasks,
+            changeUserID_Task,
+            changeTitle_Task
+        } = this.props
+
+        if (userId && taskId){            
+            const tasksUser = tasks[userId][taskId]
+            changeTitle_Task(tasksUser.title)
+            changeUserID_Task(tasksUser.userId)
+        }        
+    }
+
     changeUserID_Task= (event) =>{
-        console.log(event.target.value)
         this.props.changeUserID_Task(event.target.value)
     }
-
     changeTitle_Task = (event) =>{
-        console.log(event.target.value)
         this.props.changeTitle_Task(event.target.value)
     }
-
     saveNewTask = () =>{
-        const {userId, title, saveNewTask} = this.props
+        const{
+            match: {params: {userId, taskId} },
+            tasks,            
+            saveNewTask,
+            title,
+            editTask
+        } = this.props
+        // const {userId, title, saveNewTask} = this.props
         const NewTask = {
             userId: userId, 
             title: title,
             completed: false
         }
-        saveNewTask(NewTask)
+        if (userId && taskId){
+            const tasksUser = tasks[userId][taskId]   
+            const taskUserEdit = {
+                ...NewTask,
+                completed: tasksUser.completed,
+                id: tasksUser.id
+            }
+            editTask(taskUserEdit)  
+        } 
+        else {
+            saveNewTask(NewTask)
+        }
     }
     enabled = () =>{
         const {userId, title, loading_tasks} = this.props        
@@ -66,7 +95,7 @@ class NewTask extends React.Component{
                                 id="userid" 
                                 aria-describedby="userid" 
                                 placeholder="Enter User ID"
-                                defaultValue={this.props.userID}
+                                defaultValue={this.props.userId}
                                 onChange={this.changeUserID_Task}
                             />
                             <small id="userid" className="form-text text-muted">Asegurese de ingresar el ID correcto</small>
@@ -79,7 +108,7 @@ class NewTask extends React.Component{
                                 id="tasktitle" 
                                 aria-describedby="tasktitle" 
                                 placeholder="Enter Task Title"
-                                defaultValue={this.props.taskTitle}
+                                defaultValue={this.props.title}
                                 onChange={this.changeTitle_Task}
                             />                            
                         </div>

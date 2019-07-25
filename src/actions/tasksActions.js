@@ -43,11 +43,12 @@ export const changeUserID_Task = (userId) => (dispatch)=>{
     })
 }
 
-export const changeTitle_Task = (titleTask) => (dispatch)=>{
+export const changeTitle_Task = (titleTask) => (dispatch)=>{   
+    console.log("entra", titleTask) 
     dispatch({
         type:'changeTitle_Task',
         payload: titleTask
-    })
+    })    
 }
 
 export const saveNewTask = (newTask) => async (dispatch)=>{
@@ -69,4 +70,8 @@ export const saveNewTask = (newTask) => async (dispatch)=>{
             payload: e.message
         })
     }
+}
+
+export const editTask = (editTask) => (dispatch) =>{
+    console.log(editTask)
 }
