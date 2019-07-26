@@ -50,6 +50,26 @@ export default (state = INITIAL_STATE, action) => {
                 userId: '',
                 title: ''
             }
+        case 'editTask':
+            return {
+                ...state,
+                tasks:{},
+                loading_tasks: false,
+                error_tasks: '',
+                return: true,
+                userId: '',
+                title: ''
+            }
+        case 'completedTasks':
+            return {
+                ...state,
+                tasks: action.payload
+                // loading_tasks: false,
+                // error_tasks: '',
+                // return: true,
+                // userId: '',
+                // title: ''
+            }
         default: return state
     }
 }

@@ -15,6 +15,12 @@ class IndexTasks extends React.Component{
         }        
     }
 
+    componentDidUpdate(){
+        if (!Object.keys(this.props.tasks).length){
+            this.props.allTasks()
+        } 
+    }
+
     renderTasks = () =>{
        const { tasks, loading_tasks, error_tasks } = this.props;
 
@@ -38,7 +44,7 @@ class IndexTasks extends React.Component{
     }
 
     renderTasksByUser = (userId) =>{
-        const {tasks} = this.props
+        const {tasks, completedTask, deleteTask} = this.props
         const userTask = {...tasks[userId]}
         return(
             Object.keys(userTask).map((task)=>(
@@ -50,9 +56,8 @@ class IndexTasks extends React.Component{
                             <Link to={`/tasks/newtask/${userId}/${userTask[task].id}`}>
                                 <button type="button" className="btn btn-info btn-sm">Edit</button>
                             </Link>
-                            <Link to={`/tasks/newtask/${userId}/${userTask[task].id}`}>
-                                <button type="button" className="btn btn-danger btn-sm">Delete</button>
-                            </Link>
+                            <button type="button" className="btn btn-danger btn-sm" onClick={()=>deleteTask(userTask[task].id)}>Delete</button>
+                            <button type="button" className="btn btn-warning btn-sm" onClick={()=>completedTask(userId, userTask[task].id)}>Task Completed</button>
                         </p>
                     </div>                    
                 </div>
